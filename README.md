@@ -1,6 +1,6 @@
 # masakari
 
-Metascript macro library for functional programming with [mori](https://swannodette.github.io/mori/).
+[Metascript](https://github.com/massimiliano-mantione/metascript) macro library for functional programming with [mori](https://swannodette.github.io/mori/).
 
 # Using
 
