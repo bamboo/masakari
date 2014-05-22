@@ -2,7 +2,7 @@
 
 #metaimport '..'
 
-refer (require 'chai') (expect, assert)
+refer (require 'chai') [expect, assert]
 
 var mori = require 'mori'
 
