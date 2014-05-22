@@ -115,7 +115,7 @@ describe
   '#let'
   () ->
     it
-      'can destructure vector'
+      'can destructure array'
       () ->
         var v =
           #let [fst, snd] = [1, 2]
@@ -123,7 +123,15 @@ describe
         expect(v).to.eql([2, 1])
 
     it
-      'can destructure sequence'
+      'can destructure vector'
+      () ->
+        var v =
+          #let [fst, snd] = ::[1, 2]
+            [snd, fst]
+        expect(v).to.eql([2, 1])
+
+    it
+      'can destructure list'
       () ->
         var v =
           #let [fst, snd] = ::(1, 2)
@@ -236,13 +244,13 @@ describe
         expect(a).to.equal 0
 
     it
-      'can destructure vector argument'
+      'can destructure array argument'
       () ->
         fun f [fst, snd] -> [snd, fst]
         expect(f([1, 2])).to.eql([2, 1])
 
     it
-      'can destructure sequence argument'
+      'can destructure list argument'
       () ->
         fun f [fst, snd] -> [snd, fst]
         expect(f ::(1, 2)).to.eql([2, 1])
