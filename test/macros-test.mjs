@@ -1,6 +1,6 @@
 #external (describe, it, before-each)
 
-#metaimport '../macros'
+#metaimport '..'
 
 refer (require 'chai') (expect, assert)
 
