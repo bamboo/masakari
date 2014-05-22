@@ -1,0 +1,28 @@
+{
+  "name": "masakari",
+  "version": "0.0.1",
+  "description": "metascript macro library for functional programming with mori",
+  "main": "macros.js",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": "git://github.com/bamboo/masakari.git",
+  "keywords": [
+    "mori",
+    "macros"
+  ],
+  "author": "Rodrigo B. de Oliveira <rbo@acm.org>",
+  "license": "BSD",
+  "devDependencies": {
+    "meta-script": "~0.0.28",
+    "gulp-mjs": "~0.0.1",
+    "gulp": "~3.6.0",
+    "gulp-mocha": "~0.4.1",
+    "event-stream": "~3.1.2",
+    "chai": "~1.9.1",
+    "mori": "~0.2.6",
+    "source-map-support": "~0.2.5",
+    "benchmark": "~1.0.0",
+    "microtime": "~0.5.1"
+  }
+}
