@@ -1,4 +1,5 @@
 # masakari
+[![Build Status](https://travis-ci.org/bamboo/masakari.svg?branch=master)](https://travis-ci.org/bamboo/masakari)
 
 [Metascript](https://github.com/massimiliano-mantione/metascript) macro library for functional programming with [mori](https://swannodette.github.io/mori/).
 
