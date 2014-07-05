@@ -280,7 +280,7 @@ describe
       'can destructure variadic function args'
       () ->
         fun f
-          &[fst, snd] -> if snd [snd] else []
+          (&[fst, snd]) -> if snd [snd] else []
         expect(f()).to.eql([])
         expect(f(0)).to.eql([])
         expect(f(0, 42)).to.eql([42])
