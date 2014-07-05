@@ -37,7 +37,7 @@ var javascriptFiles = es.map(function (data, callback) {
 function test() {
   return combine(
     gulp.src(paths.test.src),
-    mjs({debug: true}),
+    mjs({debug: true}).on('error', onError),
     gulp.dest(paths.test.dest),
     javascriptFiles,
     mocha({reporter: 'spec'}));
