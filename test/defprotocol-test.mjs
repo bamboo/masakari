@@ -27,7 +27,7 @@ refer (require 'chai') expect
     `
       #no-new-scope do
         var (~`name) = {
-          id: (~`id-val)
+          id: ~`id-val
           extend: (value, vtable) ->
             (value.prototype || value)[~`id-val] = vtable
         }
@@ -39,9 +39,9 @@ refer (require 'chai') expect
   expand: (name, value, body) ->
     var fns = body.as-tuple ().map #->
       var (n, lambda) = (#it.at 0, #it.at 1)
-      `((~`n):(~`lambda))
+      `((~`n): ~`lambda)
     `
-      (~`name).extend (~`value, {(~`fns)})
+      (~`name).extend (~`value, {~`fns})
 
 
 describe
