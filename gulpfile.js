@@ -11,7 +11,7 @@ var paths = {
     src: ['macros.mjs'],
     dest: '.',
     test: {
-      src: ['test/macros-test.mjs'],
+      src: ['test/*.mjs'],
       dest: 'test'
     }
 };
