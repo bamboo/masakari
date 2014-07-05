@@ -8,30 +8,32 @@ refer (require 'chai') expect
   binaryKeyword
   LOW
   expand: (name, body) ->
-    name.handle-as-tag-declaration ()
 
-    var id = name.val + '_' + Math.random ().to-string (36).substr (2)
-    var id-val = name.new-value id
+    var name-val = name.new-value name.val
     var fns = body.as-tuple ().map #->
       assert! #it.call? ()
       var (f, args) = (#it.at 0, #it.at (1).as-tuple ())
-      `
+      `(~`f):
         fun (~`f) (~`args) ->
           var self = (~`args.at 0)
-          var vtable = self[~`id-val]
+          var vtable = self[(~`name).id]
           if vtable
             vtable.(~`f) (~`args)
           else
             throw Error
-              '`' + (~`name.new-value name.val) + '\' protocol not supported by `' + self + "'"
+              '`' + (~`name-val) + '\' protocol not supported by `' + self + "'"
+
+    var name-decl = name.new-tag name.val
+    name-decl.handle-as-tag-declaration ()
     `
       #no-new-scope do
-        var (~`name) = {
-          id: ~`id-val
+        var (~`name-decl) = {
+          id: (~`name-val) + '_' + Math.random ().to-string (36).substr (2)
           extend: (value, vtable) ->
-            (value.prototype || value)[~`id-val] = vtable
+            (value.prototype || value)[(~`name).id] = vtable
+          (~`fns)
         }
-        ~`fns
+        (~`name)
 
 #defmacro #extend
   ternaryKeyword
@@ -55,6 +57,25 @@ describe
         #extend Countable String
           count s -> s.length
         expect (count '42').to.equal 2
+
+    it
+      'can create multiple protocol instances'
+      #->
+        fun instantiate () ->
+          #defprotocol Runnable
+            run o
+
+        var p1 = instantiate ()
+        var p2 = instantiate ()
+
+        var o = {}
+        #extend p1 o
+          run o -> ::p1
+        #extend p2 o
+          run o -> ::p2
+
+        (expect p1.run o).to.equal ::p1
+        (expect p2.run o).to.equal ::p2
 
 
 describe
