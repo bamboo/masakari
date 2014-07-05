@@ -16,7 +16,7 @@ refer (require 'chai') expect
       `(~`f):
         fun (~`f) (~`args) ->
           var self = (~`args.at 0)
-          var vtable = self[(~`name).id]
+          var vtable = self[(~`name).$id$]
           if vtable
             vtable.(~`f) (~`args)
           else
@@ -28,9 +28,9 @@ refer (require 'chai') expect
     `
       #no-new-scope do
         var (~`name-decl) = {
-          id: (~`name-val) + '_' + Math.random ().to-string (36).substr (2)
-          extend: (value, vtable) ->
-            (value.prototype || value)[(~`name).id] = vtable
+          $id$: (~`name-val) + '_' + Math.random ().to-string (36).substr (2)
+          $extend$: (value, vtable) ->
+            (value.prototype || value)[(~`name).$id$] = vtable
           (~`fns)
         }
         (~`name)
@@ -43,7 +43,7 @@ refer (require 'chai') expect
       var (n, lambda) = (#it.at 0, #it.at 1)
       `((~`n): ~`lambda)
     `
-      (~`name).extend (~`value, {~`fns})
+      (~`name).$extend$ (~`value, {~`fns})
 
 
 describe
