@@ -14,7 +14,7 @@ npm install --save-dev masakari
 Import it:
 
 ```
-#metaimport 'node_modules/masakari'
+#metaimport masakari
 ```
 
 The import path must be relative to the source file.
