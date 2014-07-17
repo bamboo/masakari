@@ -366,6 +366,49 @@
         (~`multi).multi.dispatch-table[~`value] = fun ~`lambda
 
 
+  #keepmacro #defprotocol
+    binaryKeyword
+    LOW
+    expand: (name, body) ->
+      var name-val = name.new-value name.val
+      var fns = body.as-tuple ().map #->
+        if !(#it.call? ())
+          throw Error ('Unsupported protocol method definition: `' + #it.print-ast () + "'")
+        var (f, args) = (#it.at 0, #it.at (1).as-tuple ())
+        `(~`f):
+          fun (~`f) (~`args) ->
+            var self = (~`args.at 0)
+            var vtable = self[(~`name).$id$]
+            if vtable
+              vtable.(~`f) (~`args)
+            else
+              throw Error
+                '`' + (~`name-val) + '\' protocol not supported by `' + self + "'"
+
+      var name-decl = name.new-tag name.val
+      name-decl.handle-as-tag-declaration ()
+      `
+        #no-new-scope do
+          var (~`name-decl) = {
+            $id$: (~`name-val) + '_' + Math.random ().to-string (36).substr (2)
+            $extend$: (value, vtable) ->
+              (value.prototype || value)[(~`name).$id$] = vtable
+            (~`fns)
+          }
+          (~`name)
+
+
+  #keepmacro #extend
+    ternaryKeyword
+    LOW
+    expand: (name, value, body) ->
+      var fns = body.as-tuple ().map #->
+        var (n, lambda) = (#it.at 0, #it.at 1)
+        `((~`n): ~`lambda)
+      `
+        (~`name).$extend$ (~`value, {~`fns})
+
+
   #keepmacro refer
     binaryKeyword
     HIGH
