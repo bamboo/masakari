@@ -4,6 +4,8 @@
 
 refer (require 'chai') expect
 
+var mori = require 'mori'
+
 #defmacro #defprotocol
   binaryKeyword
   LOW
@@ -49,14 +51,23 @@ refer (require 'chai') expect
 describe
   '#defprotocol'
   #->
+
     it
       'can define single function protocols'
       #->
         #defprotocol Countable
           count coll
-        #extend Countable String
-          count s -> s.length
-        expect (count '42').to.equal 2
+        (expect count).to.equal Countable.count
+
+    it
+      'can define multi function protocols'
+      #->
+        #defprotocol Service
+          start s
+          stop s
+
+        (expect start).to.equal Service.start
+        (expect stop).to.equal Service.stop
 
     it
       'can create multiple protocol instances'
@@ -110,6 +121,17 @@ describe
 
         start a
         (expect a.started).to.equal true
+
+    [[Boolean, false], [Number, 0]].for-each fun [type, value] ->
+      it
+        'can extend protocols to primitive type ' + typeof value
+        #->
+          refer JSON stringify
+          #defprotocol Representable
+            repr o
+          #extend Representable type
+            repr o -> stringify o
+          (expect repr value).to.equal stringify value
 
     it
       'throws for unsupported protocol'
