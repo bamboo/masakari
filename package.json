@@ -14,15 +14,15 @@
   "author": "Rodrigo B. de Oliveira <rbo@acm.org>",
   "license": "BSD",
   "devDependencies": {
-    "meta-script": "~0.0.30",
-    "gulp-mjs": "~0.0.2",
-    "gulp": "~3.6.0",
-    "gulp-mocha": "~0.4.1",
-    "event-stream": "~3.1.2",
-    "chai": "~1.9.1",
-    "mori": "~0.2.6",
-    "source-map-support": "~0.2.5",
     "benchmark": "~1.0.0",
-    "microtime": "~0.5.1"
+    "chai": "~1.9.1",
+    "event-stream": "~3.1.2",
+    "gulp": "^3.8.0",
+    "gulp-mjs": "~0.0.2",
+    "gulp-mocha": "^0.4.1",
+    "meta-script": "^0.0.42",
+    "microtime": "^0.5.1",
+    "mori": "~0.2.6",
+    "source-map-support": "~0.2.5"
   }
 }
