@@ -516,15 +516,11 @@
     LOW
     expand: () ->
       #external (->array, gensym)
-
       var expression = ast.at 0
+      var cases = ->array ast.at 1
+      var case-var = ast.new-tag gensym '_case_'
 
-      var cases = ->array(ast.at 1)
-
-      "reverse walk the cases building the if/else tree bottom up"
-
-      var case-var = ast.new-tag(gensym('_case_'))
-
+      ;reverse walk the cases building the if/else tree bottom up"
       var reducer = (acc, c) ->
         `
           if (mori.equals(~`case-var, ~`c.at 0))
