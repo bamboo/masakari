@@ -528,8 +528,14 @@
           else
             ~`acc
 
-      var default-case = `
-        throw Error('unmatched case `' + (~`expression.new-value(expression.print-ast())) + "' (" + (~`case-var) + ")")
+      var last-case-idx = cases.length - 1
+      var last-case = cases[last-case-idx]
+      var default-case =
+        if (last-case.id == 'else') do
+          cases = cases.splice (0, last-case-idx)
+          last-case.at 0
+        else
+          `throw Error('unmatched case `' + (~`expression.new-value(expression.print-ast())) + "' (" + (~`case-var) + ")")
 
       #external declaration
       `

@@ -93,6 +93,16 @@ describe
             ::foo 42
         expect(f).to.throw Error
 
+    it
+      'allows else clause'
+      () ->
+        var f = () ->
+          var v = ::bar
+          case v
+            ::foo 42
+            else ()
+        expect(f ()).to.equal undefined
+
 
 describe
   '!!'
