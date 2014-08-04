@@ -10,13 +10,29 @@
         instance
       else do
         #external (gensym, declaration)
-        var temp = instance.new-tag(gensym 'doto')
+        var temp = instance.new-tag gensym 'doto'
         var body = ops.as-tuple().map
-          op ->
+          template ->
+            var has-placeholders = false
+            var op = template.copy ()
+            op.for-each-recursive
+              c -> do!
+                if (c.placeholder?())
+                  has-placeholders = true
+                  c.replace-with temp.copy ()
             if (op.call?())
-              `(~`temp).(~`op.at 0)(~`op.at 1)
+              if has-placeholders
+                op
+              else
+                `(~`op.at 0) (~`temp, ~`op.at 1)
             else
-              `(~`temp).(~`op) ()
+              if has-placeholders
+                if (template.id == '.')
+                 `(~`op) ()
+                else
+                  op
+              else
+                `(~`op) (~`temp)
         `do
           var (~`declaration(temp)) = ~`instance
           ~`body

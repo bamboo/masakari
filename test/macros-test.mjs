@@ -604,17 +604,63 @@ describe
 describe
   '#doto'
   () ->
+
+    fun push! (a, e) -> do!
+      a.push e
+
     it
       'accepts multiple operations and returns original instance'
       () ->
         var v = #doto []
-          push 1
-          push 2
+          push! 1
+          push! 2
+        expect(v).to.eql([1, 2])
+
+    it
+      'accepts multiple dot expressions and returns original instance'
+      () ->
+        var v = #doto []
+          .push 1
+          .push 2
+        expect(v).to.eql([1, 2])
+
+    it
+      'accepts mixed operations and returns original instance'
+      () ->
+        var v = #doto []
+          .push 1
+          push! 2
         expect(v).to.eql([1, 2])
 
     it
       'transforms reference into call'
       () ->
+        fun shift! a ->
+          a.shift ()
         var v = #doto [1, 2]
-          shift
+          shift!
         expect(v).to.eql([2])
+
+    it
+      'transforms dot expression into call'
+      () ->
+        var v = #doto [1, 2]
+          .shift
+        expect(v).to.eql([2])
+
+    it
+      'accepts assignment to dot expression'
+      () ->
+        var v = #doto {}
+          .foo = 'bar'
+          .bar = 'baz'
+        expect(v).to.eql {foo: 'bar', bar: 'baz'}
+
+    it
+      'accepts explicit placeholders'
+      () ->
+        fun append! (e, a) -> do!
+          a.push e
+        var v = #doto []
+          append! (42, #)
+        expect(v).to.eql([42])
