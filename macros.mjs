@@ -118,17 +118,22 @@
         var ->map-val = comp(map-val, value-of)
         var to = f -> binding.map f
         var tuple-of = f -> binding.new-tuple(to f)
-        var (decls, obj-vals, map-vals) =
+        var (decls, obj-vals, map-vals, undef-vals) =
           if (binding.count > 1)
             tuple-of ->declaration
             tuple-of ->object-val
             tuple-of ->map-val
+            tuple-of #-> `undefined
           else
             to ->declaration
             to ->object-val
             to ->map-val
+            to #-> `undefined
 
-        `(var (~`decls) = if (mori.is_map(~`value)) (~`map-vals) else (~`obj-vals))
+        `(var (~`decls) =
+          if ((~`value) == undefined || (~`value) == null) (~`undef-vals)
+          else if (mori.is_map(~`value)) (~`map-vals)
+          else (~`obj-vals))
 
       var destructurer-for = binding ->
         if (binding.object?()) destructure-object

@@ -156,6 +156,15 @@ describe
             [x, y]
         expect(v).to.eql([1, 2])
 
+    [undefined, null].for-each #->
+      it
+        'can destructure ' + #it + ' as object'
+        () ->
+          var v =
+            #let {x, y} = #it
+              [x, y]
+          expect(v).to.eql([undefined, undefined])
+
     it
       'can destructure object into explicitly named variables'
       () ->
@@ -270,6 +279,13 @@ describe
       () ->
         fun f {x, y} -> [x, y]
         expect(f {x: 1, y: 2}).to.eql([1, 2])
+
+    [undefined, null].for-each #->
+      it
+        'can destructure ' + #it + ' argument as object'
+        () ->
+          fun f {x, y} -> [x, y]
+          expect(f #it).eql([undefined, undefined])
 
     it
       'can destructure map argument'
