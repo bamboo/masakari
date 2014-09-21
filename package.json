@@ -22,7 +22,7 @@
     "gulp-mocha": "^0.4.1",
     "meta-script": "^0.0.42",
     "microtime": "^0.5.1",
-    "mjs-check": "0.0.2",
+    "mjs-check": "0.0.3",
     "mori": "~0.2.6",
     "source-map-support": "~0.2.5"
   }
