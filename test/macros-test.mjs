@@ -9,7 +9,7 @@ var mori = require 'mori'
 fun mori-expect(actual, expected) ->
   assert
     mori.equals(actual, expected)
-    'expecting `' + expected.toString() + "' to equal `" + actual.toString() + "'"
+    'expecting `' + expected.to-string() + "' to equal `" + actual.to-string() + "'"
 
 
 describe

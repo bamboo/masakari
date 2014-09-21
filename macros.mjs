@@ -271,11 +271,10 @@
               else
                 `arguments[~`i]
 
-
       #external ->array
       var reducer = (acc, lambda) ->
         if (lambda.id != '->')
-          throw Error('expecting lambda, got `' + lambda.toExpressionString() + "'")
+          throw Error('expecting lambda, got `' + lambda.to-expression-string() + "'")
         var bindings = lambda.at(0).as-tuple()
         var arity = bindings.count
         var fun-condition = if (variadic? lambda)
