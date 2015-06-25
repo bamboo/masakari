@@ -403,7 +403,7 @@
               vtable.(~`f) (~`args)
             else
               throw Error
-                '`' + (~`name-val) + '\' protocol not supported by `' + self + "'"
+                '`' + (~`name-val) + "' protocol not supported by `" + self + "'"
 
       var name-decl = name.new-tag name.val
       name-decl.handle-as-tag-declaration ()
