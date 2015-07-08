@@ -174,6 +174,16 @@ describe
         expect(v).to.eql([1, 2])
 
     it
+      'evaluates value only once'
+      () ->
+        var i = 0
+        var v =
+          #let {x} = {x: (i++)}
+            x
+        expect(i).to.eql 1
+        expect(v).to.eql 1
+
+    it
       'can destructure nested objects'
       ; () ->
       ;   var v =

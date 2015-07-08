@@ -108,7 +108,6 @@
           else
             property.at 1
 
-
         var comp =
           (f, g) ->
             x -> f (g x)
@@ -143,8 +142,10 @@
 
       var binding = assignment.at 0
       var value = assignment.at 1
-      var d = destructurer-for(binding)(binding, value)
+      var value-var = binding.new-tag(gensym())
+      var d = destructurer-for(binding)(binding, value-var)
       `do
+        var (~`declaration value-var) = (~`value)
         ~`d
         ~`body
 
