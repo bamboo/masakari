@@ -28,7 +28,7 @@ describe
       () ->
         mori-expect
           ::{::foo ::bar}
-          mori.hash_map('foo', 'bar')
+          mori.hash-map('foo', 'bar')
 
 
 describe

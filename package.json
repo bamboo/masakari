@@ -15,15 +15,15 @@
   "license": "BSD",
   "devDependencies": {
     "benchmark": "~1.0.0",
-    "chai": "~1.9.1",
-    "event-stream": "~3.1.2",
+    "chai": "~3.0.0",
+    "event-stream": "~3.3.1",
     "gulp": "^3.8.0",
     "gulp-mjs": "~0.0.10",
-    "gulp-mocha": "^0.4.1",
+    "gulp-mocha": "^2.1.2",
     "meta-script": "^0.0.47",
-    "microtime": "^0.5.1",
+    "microtime": "^1.4.2",
     "mjs-check": "0.0.4",
-    "mori": "~0.2.6",
-    "source-map-support": "~0.2.5"
+    "mori": "~0.3.2",
+    "source-map-support": "~0.3.2"
   }
 }

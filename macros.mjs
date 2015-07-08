@@ -131,7 +131,7 @@
 
         `(var (~`decls) =
           if ((~`value) == undefined || (~`value) == null) (~`undef-vals)
-          else if (mori.is_map(~`value)) (~`map-vals)
+          else if (mori.map?(~`value)) (~`map-vals)
           else (~`obj-vals))
 
       var destructurer-for = binding ->
@@ -448,18 +448,18 @@
 
       "* multiple members (array or tuple)"
 
-      "  refer mori [hash_map, vector]"
+      "  refer mori [hash-map, vector]"
 
       "   => "
-      "  var (hash_map, vector) = (mori.hash_map, mori.vector)"
+      "  var (hash-map, vector) = (mori.hash-map, mori.vector)"
 
       " also works with tuples:"
 
-      "  refer mori (hash_map, vector)"
+      "  refer mori (hash-map, vector)"
 
       " or "
       "  refer mori"
-      "    hash_map"
+      "    hash-map"
       "    vector"
 
       var ref = tag ->
@@ -501,7 +501,7 @@
           var k = p.at 0
           kvs.push(k.new-value(k.val))
           kvs.push(p.at(1).copy()))
-        `mori.hash_map(~`kvs)
+        `mori.hash-map(~`kvs)
 
       else if (v.array?()) do
         var vs = v.new-tuple(v.map(e -> e.copy()))
@@ -527,7 +527,7 @@
       "  by path: coll !! (k0, k1, kn)"
 
       if (path.tuple?())
-        ` mori.get_in(~`coll, [~`path.map(_ -> _)])
+        ` mori.get-in(~`coll, [~`path.map(_ -> _)])
       else
         ` mori.get(~`coll, ~`path)
 
