@@ -565,6 +565,29 @@
           ~`cases.reduce-right(reducer, default-case)
 
 
+  #keepmacro #defrecord
+    unary
+    LOW
+    expand: r ->
+      const
+        name        = r.at 0
+        name-string = ast.new-value name.get-tag ()
+        args        = (r.at 1).as-tuple ()
+        assignments = args.map a -> `(this. ~`(a) = ~`a)
+        fields      = args.map a -> `(this. ~`(a))
+      `
+        #no-new-scope do
+          fun (~`name) (~`args) ->
+            if !(this instanceof (~`name))
+              new (~`name) (~`args)
+            else do
+              ~`assignments
+              this
+          (~`name).prototype.to-string = () ->
+            (~`name-string) + ' (' + ([~`fields].join ', ') + ')'
+          (~`name)
+
+
 #keep-meta
 
   var declaration = tag ->
